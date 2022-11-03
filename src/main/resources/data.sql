@@ -1,0 +1,1 @@
+insert into carro values ('ABC-1234', 'Hyundai', 'HB20', 'Prata', 2018, 43400, 95.50)
