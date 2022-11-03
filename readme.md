@@ -60,8 +60,8 @@ O cliente, que irá alugar os carros em nossas agências tem as seguintes inform
 
 ### O sistema
 
-Com estas informações salvas no sistema, temos a principal ação a ser feita: Cliente alugar um carro.
-As informações enviadas pelo front-end para representar esse aluguel será:
+Com estas informações salvas no sistema, temos a principal ação a ser feita: Cliente alugar um carro. Teremos uma chamada para algum endpoint criado por você.
+As informações enviadas pelo front-end para representar esse aluguel será (via um json no corpo da requisição):
 
 1. CPF do cliente
 2. CPF do vendedor
