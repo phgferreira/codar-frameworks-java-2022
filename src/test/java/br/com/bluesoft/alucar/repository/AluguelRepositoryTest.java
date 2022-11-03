@@ -52,7 +52,7 @@ class AluguelRepositoryTest {
         List<Aluguel> alugueis = aluguelRepository.findAll();
         assertTrue( alugueis.size() > 0 );
     }
- st
+
     @AfterEach
     void afterEach() {
         aluguelRepository.deleteById( aluguelKeyTest );
