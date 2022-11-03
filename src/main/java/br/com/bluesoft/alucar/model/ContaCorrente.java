@@ -1,7 +1,11 @@
 package br.com.bluesoft.alucar.model;
 
+import javax.persistence.*;
+
+@Entity
 public class ContaCorrente {
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer contaCorrenteKey;
 
     private String banco;
@@ -10,6 +14,8 @@ public class ContaCorrente {
 
     private Integer contaCorrente;
 
+    @OneToOne
+    @JoinColumn(name = "vendedor_key")
     private Vendedor vendedor;
 
     public Integer getContaCorrenteKey() {

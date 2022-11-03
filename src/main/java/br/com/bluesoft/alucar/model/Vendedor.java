@@ -1,10 +1,13 @@
 package br.com.bluesoft.alucar.model;
 
+import javax.persistence.*;
 import java.math.BigInteger;
 import java.time.LocalDate;
 
+@Entity
 public class Vendedor {
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer vendedorKey;
 
     private String nome;
@@ -13,6 +16,7 @@ public class Vendedor {
 
     private LocalDate dataAdmissao;
 
+    @OneToOne(mappedBy = "vendedor")
     private ContaCorrente contaCorrente;
 
     public Integer getVendedorKey() {
