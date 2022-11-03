@@ -23,7 +23,7 @@ Dados para conexão com o banco pelo browser:
 * User Name: movimentocodar
 * Password: movimentocodar
 
-A tabela carro já existe e já possui registros.
+A tabela carro, vendedor, conta corrente, cliente e endereço já existem e já possuem registros.
 
 ### Entidades
 
