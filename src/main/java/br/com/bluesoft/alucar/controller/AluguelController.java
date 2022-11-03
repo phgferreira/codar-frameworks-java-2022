@@ -1,5 +1,6 @@
 package br.com.bluesoft.alucar.controller;
 
+import br.com.bluesoft.alucar.controller.dto.AluguelDetalhadoDto;
 import br.com.bluesoft.alucar.controller.dto.AluguelFormDto;
 import br.com.bluesoft.alucar.model.Aluguel;
 import br.com.bluesoft.alucar.repository.AluguelRepository;
@@ -35,13 +36,12 @@ public class AluguelController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Aluguel> insert(@RequestBody AluguelFormDto aluguelFormDto, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<AluguelDetalhadoDto> insert(@RequestBody AluguelFormDto aluguelFormDto, UriComponentsBuilder uriBuilder) {
         System.out.println(aluguelFormDto);
         Aluguel aluguel = aluguelFormDto.convertToAluguel(clienteRepository, vendedorRepository, carroRepository);
         aluguelRepository.save( aluguel );
 
         URI uri = uriBuilder.path("/aluguel/{id}").buildAndExpand(aluguel.getAluguelKey()).toUri();
-        // Por enquanto estou retornando nulo no body mas em breve colocarei o DTO
-        return ResponseEntity.created( uri ).body( null );
+        return ResponseEntity.created( uri ).body( new AluguelDetalhadoDto( aluguel ) );
     }
 }
