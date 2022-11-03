@@ -1,5 +1,17 @@
 # Frameworks
 
+>Status: Em Desenvolvimento
+
+## Etapas
+- [ ] Construção das entidades;
+- [ ] Cliente aluga carro:
+  - [ ] Recebe os dados;
+  - [ ] Gera e guarda aluguel;
+  - [ ] Gera e guarda comissão.
+- [ ] Relatórios:
+  - [ ] Aluguéis;
+  - [ ] Comissões
+
 ## Bem vindo ao desafio de frameworks do movimento codar.
 
 A idéia deste desafio é forçar a prática deliberada do nosso conhecimento de Spring Boot, Spring MVC, JPA e Spring Data.
