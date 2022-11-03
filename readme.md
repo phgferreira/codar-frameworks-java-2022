@@ -149,3 +149,15 @@ programas que podemos instalar em nosso computador.
 Estes programas nós permite fazer chamadas GET, POST, DELETE e PUT para nossos endpoints.
 
 É legal termos pelo menos uma JPQL e uma Query Nativa dentro do sistema.
+
+Para conhecer um pouco o banco, rode as seguintes queries:
+
+select * from carro;
+
+select * from cliente c
+inner join endereco e on e.cliente_key = c.cliente_key;
+
+select * from vendedor v 
+inner join conta_corrente cc on cc.vendedor_key = v.vendedor_key;
+
+
