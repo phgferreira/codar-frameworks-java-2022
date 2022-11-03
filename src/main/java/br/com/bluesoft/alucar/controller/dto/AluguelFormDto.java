@@ -8,6 +8,7 @@ import br.com.bluesoft.alucar.repository.CarroRepository;
 import br.com.bluesoft.alucar.repository.ClienteRepository;
 import br.com.bluesoft.alucar.repository.VendedorRepository;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 
@@ -68,7 +69,8 @@ public class AluguelFormDto {
         Vendedor vendedor = vendedorRepository.findByCpf(new BigInteger(this.vendedorCpf));
         Carro carro = carroRepository.findByPlaca(this.carroPlaca);
 
-        Aluguel aluguel = new Aluguel(cliente, vendedor, carro, this.diasAlugado, LocalDate.now());
+        BigDecimal valorTotal = carro.getDiaria().multiply( new BigDecimal(this.diasAlugado) );
+        Aluguel aluguel = new Aluguel(cliente, vendedor, carro, this.diasAlugado, valorTotal, LocalDate.now());
         return aluguel;
     }
 }

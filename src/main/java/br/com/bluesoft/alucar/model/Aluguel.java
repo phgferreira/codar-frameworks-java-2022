@@ -1,6 +1,7 @@
 package br.com.bluesoft.alucar.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -12,6 +13,8 @@ public class Aluguel {
     private LocalDate dataCriacao;
 
     private Integer diasAlugado;
+
+    private BigDecimal valorTotal;
 
     @ManyToOne
     @JoinColumn(name = "cliente_key")
@@ -28,11 +31,12 @@ public class Aluguel {
     public Aluguel() {
     }
 
-    public Aluguel(Cliente cliente, Vendedor vendedor, Carro carro, int diasAlugado, LocalDate dataCriacao) {
+    public Aluguel(Cliente cliente, Vendedor vendedor, Carro carro, int diasAlugado, BigDecimal valorTotal, LocalDate dataCriacao) {
         this.cliente = cliente;
         this.vendedor = vendedor;
         this.carro = carro;
         this.diasAlugado = diasAlugado;
+        this.valorTotal = valorTotal;
         this.dataCriacao = dataCriacao;
     }
 
@@ -82,5 +86,13 @@ public class Aluguel {
 
     public void setCarro(Carro carro) {
         this.carro = carro;
+    }
+
+    public BigDecimal getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
     }
 }

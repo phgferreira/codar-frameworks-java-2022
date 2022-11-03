@@ -8,6 +8,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
@@ -38,7 +39,10 @@ class AluguelRepositoryTest {
         Carro carro = carroRepository.findByPlaca("ABC-1234");
 
         LocalDate dataCriacao = LocalDate.parse("1901-01-01");
-        Aluguel aluguel = new Aluguel(cliente, vendedor, carro, 2, dataCriacao);
+        Integer diasAlugado = 2;
+        BigDecimal valorTotal = carro.getDiaria().multiply( new BigDecimal(diasAlugado) );
+
+        Aluguel aluguel = new Aluguel(cliente, vendedor, carro, diasAlugado, valorTotal, dataCriacao);
         aluguelRepository.save(aluguel);
         aluguelKeyTest = aluguel.getAluguelKey();
     }
@@ -48,7 +52,7 @@ class AluguelRepositoryTest {
         List<Aluguel> alugueis = aluguelRepository.findAll();
         assertTrue( alugueis.size() > 0 );
     }
-
+ st
     @AfterEach
     void afterEach() {
         aluguelRepository.deleteById( aluguelKeyTest );

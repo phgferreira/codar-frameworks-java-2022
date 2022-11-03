@@ -49,6 +49,7 @@ create table aluguel (
     aluguel_key INT PRIMARY KEY AUTO_INCREMENT,
     data_criacao date not null,
     dias_alugado int not null,
+    valor_total float not null,
     cliente_key int not null,
         foreign key (cliente_key) references cliente(cliente_key),
     vendedor_key int not null,
