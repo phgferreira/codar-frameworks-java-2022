@@ -1,11 +1,15 @@
 package br.com.bluesoft.alucar.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 
+@Entity
 public class Carro {
 
-    private Integer carroKey;
-
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String placa;
 
     private String marca;
@@ -19,14 +23,6 @@ public class Carro {
     private Integer quilometragem;
 
     private BigDecimal diaria;
-
-    public Integer getCarroKey() {
-        return carroKey;
-    }
-
-    public void setCarroKey(Integer carroKey) {
-        this.carroKey = carroKey;
-    }
 
     public String getPlaca() {
         return placa;
