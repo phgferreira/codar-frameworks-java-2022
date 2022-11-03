@@ -10,11 +10,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class AluguelRepositoryTest {
 
     @Autowired
@@ -31,29 +31,26 @@ class AluguelRepositoryTest {
 
     private static Integer aluguelKeyTest = 0;
 
-    @Test @DisplayName("Deve cadastrar um aluguel no banco de dados")
-    @Order(1)
-    void insertTest() {
+    @BeforeEach
+    void beforeEach() {
         Cliente cliente = clienteRepository.findByCpf( new BigInteger("39371890017") );
-        assertNotNull( cliente );
-
         Vendedor vendedor = vendedorRepository.findByCpf( new BigInteger("34378748819") );
-        assertNotNull( vendedor );
-
         Carro carro = carroRepository.findByPlaca("ABC-1234");
-        assertNotNull( carro );
 
         LocalDate dataCriacao = LocalDate.parse("1901-01-01");
         Aluguel aluguel = new Aluguel(cliente, vendedor, carro, 2, dataCriacao);
         aluguelRepository.save(aluguel);
-        assertNotNull( aluguel.getAluguelKey() );
-
-        // Guarda para ser usado no teste de delete
         aluguelKeyTest = aluguel.getAluguelKey();
     }
 
-//    @Test @DisplayName("Deve listar todos os alugueis")
-//    void listAllTest() {
-//
-//    }
+    @Test @DisplayName("Deve listar todos os alugueis")
+    void listAllTest() {
+        List<Aluguel> alugueis = aluguelRepository.findAll();
+        assertTrue( alugueis.size() > 0 );
+    }
+
+    @AfterEach
+    void afterEach() {
+        aluguelRepository.deleteById( aluguelKeyTest );
+    }
 }
