@@ -1,9 +1,12 @@
 package br.com.bluesoft.alucar.model;
 
+import javax.persistence.*;
 import java.math.BigInteger;
 
+@Entity
 public class Cliente {
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer clienteKey;
 
     private String nome;
@@ -14,6 +17,7 @@ public class Cliente {
 
     private BigInteger celular;
 
+    @OneToOne(mappedBy = "cliente")
     private Endereco endereco;
 
     public Integer getClienteKey() {

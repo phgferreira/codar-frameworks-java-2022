@@ -1,7 +1,11 @@
 package br.com.bluesoft.alucar.model;
 
+import javax.persistence.*;
+
+@Entity
 public class Endereco {
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer enderecoKey;
 
     private String rua;
@@ -16,6 +20,8 @@ public class Endereco {
 
     private String estado;
 
+    @OneToOne
+    @JoinColumn(name = "cliente_key")
     private Cliente cliente;
 
     public Integer getEnderecoKey() {
