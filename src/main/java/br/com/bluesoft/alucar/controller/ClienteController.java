@@ -1,9 +1,6 @@
 package br.com.bluesoft.alucar.controller;
 
-import br.com.bluesoft.alucar.dto.MensagemDto;
-import br.com.bluesoft.alucar.dto.VendedorDetalhadoDto;
-import br.com.bluesoft.alucar.dto.VendedorInsertFormDto;
-import br.com.bluesoft.alucar.dto.VendedorUpdateFormDto;
+import br.com.bluesoft.alucar.dto.*;
 import br.com.bluesoft.alucar.model.Cliente;
 import br.com.bluesoft.alucar.model.ContaCorrente;
 import br.com.bluesoft.alucar.model.Endereco;
@@ -32,21 +29,21 @@ public class ClienteController {
     @Autowired
     private EnderecoRepository enderecoRepository;
 
-//    @PostMapping
-//    @Transactional
-//    public ResponseEntity insert(@RequestBody @Valid ClienteInsertFormDto clienteInsertFormDto, UriComponentsBuilder uriBuilder) {
-//        Cliente checkCliente = clienteRepository.findByCpf(clienteInsertFormDto.getCpf());
-//        if ( checkCliente != null )
-//            return ResponseEntity.status(409).body( new MensagemDto("Cliente com CPF " + checkCliente.getCpf() + " já foi cadastrado" ) );
-//
-//        Cliente cliente = clienteInsertFormDto.convertToCliente();
-//        clienteRepository.save(cliente);
-//        Endereco endereco = clienteInsertFormDto.getEndereco( cliente );
-//        enderecoRepository.save(endereco);
-//
-//        URI uri = uriBuilder.path("/endereco/{id}").buildAndExpand(cliente.getClienteKey()).toUri();
-//        return ResponseEntity.created( uri ).body( new ClienteDetalhadoDto( cliente ) );
-//    }
+    @PostMapping
+    @Transactional
+    public ResponseEntity insert(@RequestBody @Valid ClienteInsertFormDto clienteInsertFormDto, UriComponentsBuilder uriBuilder) {
+        Cliente checkCliente = clienteRepository.findByCpf(clienteInsertFormDto.getCpf());
+        if ( checkCliente != null )
+            return ResponseEntity.status(409).body( new MensagemDto("Cliente com CPF " + checkCliente.getCpf() + " já foi cadastrado" ) );
+
+        Cliente cliente = clienteInsertFormDto.convertToCliente();
+        clienteRepository.save(cliente);
+        Endereco endereco = clienteInsertFormDto.getEndereco( cliente );
+        enderecoRepository.save(endereco);
+
+        URI uri = uriBuilder.path("/endereco/{id}").buildAndExpand(cliente.getClienteKey()).toUri();
+        return ResponseEntity.created( uri ).body( new ClienteDetalhadoDto( cliente ) );
+    }
 //
 //    @PutMapping("{id}")
 //    @Transactional

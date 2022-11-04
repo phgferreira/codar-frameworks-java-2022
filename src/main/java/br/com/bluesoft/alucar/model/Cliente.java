@@ -20,6 +20,16 @@ public class Cliente {
     @OneToOne(mappedBy = "cliente")
     private Endereco endereco;
 
+    public Cliente() {
+    }
+
+    public Cliente(String nome, BigInteger cpf, String email, BigInteger celular) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.email = email;
+        this.celular = celular;
+    }
+
     public Integer getClienteKey() {
         return clienteKey;
     }

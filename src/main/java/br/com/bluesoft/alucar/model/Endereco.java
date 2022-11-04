@@ -20,9 +20,19 @@ public class Endereco {
 
     private String estado;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "cliente_key")
     private Cliente cliente;
+
+    public Endereco(String rua, Integer numero, String complemento, String bairro, String cidade, String estado, Cliente cliente) {
+        this.rua = rua;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.cliente = cliente;
+    }
 
     public Integer getEnderecoKey() {
         return enderecoKey;
