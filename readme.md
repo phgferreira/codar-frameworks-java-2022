@@ -3,7 +3,13 @@
 >Status: Em Desenvolvimento
 
 ## Etapas
-- [ ] Construção das entidades;
+- [ ] Construção das entidades:
+  - [x] Aluguel;
+  - [ ] Comissão.
+- [ ] Crud das entidades:
+  - [x] Carro;
+  - [ ] Vendedor;
+  - [ ] Cliente.
 - [ ] Cliente aluga carro:
   - [x] Recebe os dados;
   - [x] Gera e guarda aluguel;
