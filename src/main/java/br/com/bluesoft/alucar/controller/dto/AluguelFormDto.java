@@ -9,6 +9,7 @@ import br.com.bluesoft.alucar.repository.ClienteRepository;
 import br.com.bluesoft.alucar.repository.VendedorRepository;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -25,7 +26,7 @@ public class AluguelFormDto {
     @NotBlank
     private String carroPlaca;
 
-    @NotBlank
+    @NotNull
     private Integer diasAlugado;
 
     @Override
