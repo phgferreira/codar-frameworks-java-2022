@@ -45,8 +45,7 @@ public class CarroController {
     public ResponseEntity update(@PathVariable String placa, @RequestBody @Valid CarroUpdateFormDto carroUpdateFormDto, UriComponentsBuilder uriBuilder) {
         Carro carro = carroRepository.getReferenceById(placa);
         carroUpdateFormDto.update( carro );
-        URI uri = uriBuilder.path("/carro/{placa}").buildAndExpand( carro.getPlaca() ).toUri();
-        return ResponseEntity.created( uri ).body( new CarroDetalhadoDto( carro ) );
+        return ResponseEntity.ok().body( new CarroDetalhadoDto( carro ) );
     }
 
     @DeleteMapping("{placa}")

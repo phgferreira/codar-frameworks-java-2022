@@ -50,8 +50,7 @@ public class VendedorController {
     public ResponseEntity update(@PathVariable Integer id, @RequestBody @Valid VendedorUpdateFormDto vendedorUpdateFormDto, UriComponentsBuilder uriBuilder) {
         Vendedor vendedor = vendedorRepository.getReferenceById(id);
         vendedorUpdateFormDto.update( vendedor );
-        URI uri = uriBuilder.path("/vendedor/{id}").buildAndExpand( vendedor.getVendedorKey() ).toUri();
-        return ResponseEntity.created( uri ).body( new VendedorDetalhadoDto( vendedor ) );
+        return ResponseEntity.ok().body( new VendedorDetalhadoDto( vendedor ) );
     }
 
     @DeleteMapping("{id}")

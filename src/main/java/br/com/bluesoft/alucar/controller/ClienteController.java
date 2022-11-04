@@ -51,7 +51,7 @@ public class ClienteController {
         Cliente cliente = clienteRepository.getReferenceById(id);
         clienteUpdateFormDto.update( cliente );
         URI uri = uriBuilder.path("/cliente/{id}").buildAndExpand( cliente.getClienteKey() ).toUri();
-        return ResponseEntity.created( uri ).body( new ClienteDetalhadoDto( cliente ) );
+        return ResponseEntity.ok().body( new ClienteDetalhadoDto( cliente ) );
     }
 
     @DeleteMapping("{id}")
