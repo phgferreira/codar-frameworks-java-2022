@@ -3,7 +3,7 @@ package br.com.bluesoft.alucar.controller;
 import br.com.bluesoft.alucar.controller.dto.CarroDetalhadoDto;
 import br.com.bluesoft.alucar.controller.dto.CarroInsertFormDto;
 import br.com.bluesoft.alucar.controller.dto.CarroUpdateFormDto;
-import br.com.bluesoft.alucar.controller.dto.ErroDto;
+import br.com.bluesoft.alucar.controller.dto.MensagemDto;
 import br.com.bluesoft.alucar.model.Carro;
 import br.com.bluesoft.alucar.repository.CarroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class CarroController {
     public ResponseEntity insert(@RequestBody @Valid CarroInsertFormDto carroInsertFormDto, UriComponentsBuilder uriBuilder) {
         Optional<Carro> carroOpcional = carroRepository.findById( carroInsertFormDto.getPlaca() );
         if (carroOpcional.isPresent())
-            return ResponseEntity.status(409).body( new ErroDto("Carro de placa " + carroInsertFormDto.getPlaca() + " já foi cadastrado" ) );
+            return ResponseEntity.status(409).body( new MensagemDto("Carro de placa " + carroInsertFormDto.getPlaca() + " já foi cadastrado" ) );
 
         Carro carro = carroInsertFormDto.convertToCarro();
         carroRepository.save(carro);
@@ -59,12 +59,16 @@ public class CarroController {
             return ResponseEntity.notFound().build();
 
         carroRepository.delete( carroOpcional.get() );
-        return ResponseEntity.ok(new ErroDto("Carro de placa " + placa + " excluído com sucesso"));
+        return ResponseEntity.ok(new MensagemDto("Carro de placa " + placa + " excluído com sucesso"));
     }
 
-    @GetMapping("{id}")
-    public void findById() {
+    @GetMapping("{placa}")
+    public ResponseEntity findById(@PathVariable String placa) {
+        Optional<Carro> carroOpcional = carroRepository.findById(placa);
+        if (!carroOpcional.isPresent())
+            return ResponseEntity.notFound().build();
 
+        return ResponseEntity.ok( new CarroDetalhadoDto( carroOpcional.get() ) );
     }
 
     @GetMapping

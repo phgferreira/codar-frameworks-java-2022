@@ -1,10 +1,10 @@
 package br.com.bluesoft.alucar.controller.dto;
 
-public class ErroDto {
+public class MensagemDto {
 
     private String mensagem;
 
-    public ErroDto(String mensagem) {
+    public MensagemDto(String mensagem) {
         this.mensagem = mensagem;
     }
 
