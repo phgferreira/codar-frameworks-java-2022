@@ -1,10 +1,10 @@
 package br.com.bluesoft.alucar.controller.dto;
 
-public class ObjetoExcluidoDto {
+public class ErroDto {
 
     private String mensagem;
 
-    public ObjetoExcluidoDto(String mensagem) {
+    public ErroDto(String mensagem) {
         this.mensagem = mensagem;
     }
 
