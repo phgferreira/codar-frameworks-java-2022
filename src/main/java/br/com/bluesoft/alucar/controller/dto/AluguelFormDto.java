@@ -10,6 +10,7 @@ import br.com.bluesoft.alucar.repository.VendedorRepository;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -24,6 +25,7 @@ public class AluguelFormDto {
     private String vendedorCpf;
 
     @NotBlank
+    @Pattern(regexp = "^[a-zA-Z]{3}\\-\\d{4}$")
     private String carroPlaca;
 
     @NotNull

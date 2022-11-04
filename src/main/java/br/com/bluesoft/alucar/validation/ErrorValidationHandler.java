@@ -27,8 +27,10 @@ public class ErrorValidationHandler {
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
         fieldErrors.forEach(e -> {
             String message = messageSource.getMessage(e, LocaleContextHolder.getLocale());
-            ErrorFormDto erro = new ErrorFormDto(e.getField(), message);
-            dto.add( erro );
+            if (e.getCode().equals("Pattern"))
+                dto.add( new ErrorFormDto(e.getField(), "Placa não está no padrão AAA-0000") );
+            else
+                dto.add( new ErrorFormDto(e.getField(), message) );
         });
 
         return dto;
