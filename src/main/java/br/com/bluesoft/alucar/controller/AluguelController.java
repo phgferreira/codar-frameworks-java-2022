@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.Optional;
 
@@ -34,8 +35,7 @@ public class AluguelController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<AluguelDetalhadoDto> insert(@RequestBody AluguelFormDto aluguelFormDto, UriComponentsBuilder uriBuilder) {
-        System.out.println(aluguelFormDto);
+    public ResponseEntity<AluguelDetalhadoDto> insert(@RequestBody @Valid AluguelFormDto aluguelFormDto, UriComponentsBuilder uriBuilder) {
         Aluguel aluguel = aluguelFormDto.convertToAluguel(clienteRepository, vendedorRepository, carroRepository);
         aluguelRepository.save( aluguel );
 

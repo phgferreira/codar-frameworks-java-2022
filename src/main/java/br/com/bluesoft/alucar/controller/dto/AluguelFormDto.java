@@ -8,18 +8,24 @@ import br.com.bluesoft.alucar.repository.CarroRepository;
 import br.com.bluesoft.alucar.repository.ClienteRepository;
 import br.com.bluesoft.alucar.repository.VendedorRepository;
 
+import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.NoSuchElementException;
 
 public class AluguelFormDto {
 
+    @NotBlank
     private String clienteCpf;
 
+    @NotBlank
     private String vendedorCpf;
 
+    @NotBlank
     private String carroPlaca;
 
+    @NotBlank
     private Integer diasAlugado;
 
     @Override
@@ -66,8 +72,16 @@ public class AluguelFormDto {
 
     public Aluguel convertToAluguel(ClienteRepository clienteRepository, VendedorRepository vendedorRepository, CarroRepository carroRepository) {
         Cliente cliente = clienteRepository.findByCpf(new BigInteger(this.clienteCpf));
+        if (cliente == null)
+            throw new NoSuchElementException("Cliente com o CPF " + this.clienteCpf + " não foi encontrado");
+
         Vendedor vendedor = vendedorRepository.findByCpf(new BigInteger(this.vendedorCpf));
+        if (vendedor == null)
+            throw  new NoSuchElementException("Vendedor com o CPF " + this.vendedorCpf + " não foi encontrado");
+
         Carro carro = carroRepository.findByPlaca(this.carroPlaca);
+        if (carro == null)
+            throw new NoSuchElementException("Carro com a placa " + this.carroPlaca + " não foi encontrado");
 
         BigDecimal valorTotal = carro.getDiaria().multiply( new BigDecimal(this.diasAlugado) );
         Aluguel aluguel = new Aluguel(cliente, vendedor, carro, this.diasAlugado, valorTotal, LocalDate.now());
