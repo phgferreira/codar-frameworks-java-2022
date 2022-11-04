@@ -1,5 +1,7 @@
 package br.com.bluesoft.alucar.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -16,7 +18,7 @@ public class Vendedor {
 
     private LocalDate dataAdmissao;
 
-    @OneToOne(mappedBy = "vendedor")
+    @OneToOne(mappedBy = "vendedor", cascade = CascadeType.REMOVE)
     private ContaCorrente contaCorrente;
 
     public Vendedor() {

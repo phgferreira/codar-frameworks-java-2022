@@ -54,7 +54,7 @@ public class CarroController {
     public ResponseEntity delete(@PathVariable String placa) {
         Carro carro = carroRepository.getReferenceById(placa);
         carroRepository.delete( carro );
-        return ResponseEntity.ok(new MensagemDto("Carro de placa " + placa + " excluído com sucesso"));
+        return ResponseEntity.ok(new MensagemDto("Carro " + carro.getMarca() + " " + carro.getModelo() + " (" + carro.getModelo() + " excluído com sucesso"));
     }
 
     @GetMapping("{placa}")

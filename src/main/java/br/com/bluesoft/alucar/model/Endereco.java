@@ -20,7 +20,7 @@ public class Endereco {
 
     private String estado;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne
     @JoinColumn(name = "cliente_key")
     private Cliente cliente;
 

@@ -17,7 +17,7 @@ public class Cliente {
 
     private BigInteger celular;
 
-    @OneToOne(mappedBy = "cliente")
+    @OneToOne(mappedBy = "cliente", cascade = CascadeType.REMOVE)
     private Endereco endereco;
 
     public Cliente() {
