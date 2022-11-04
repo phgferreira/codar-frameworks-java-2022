@@ -3,6 +3,7 @@ package br.com.bluesoft.alucar.controller;
 import br.com.bluesoft.alucar.controller.dto.CarroDetalhadoDto;
 import br.com.bluesoft.alucar.controller.dto.CarroInsertFormDto;
 import br.com.bluesoft.alucar.controller.dto.CarroUpdateFormDto;
+import br.com.bluesoft.alucar.controller.dto.ObjetoExcluidoDto;
 import br.com.bluesoft.alucar.model.Carro;
 import br.com.bluesoft.alucar.repository.CarroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class CarroController {
         Optional<Carro> carroOpcional = carroRepository.findById(placa);
         if (!carroOpcional.isPresent())
             return ResponseEntity.notFound().build();
+
         Carro carro = carroOpcional.get();
         carroUpdateFormDto.update( carro );
 
@@ -45,9 +47,15 @@ public class CarroController {
         return ResponseEntity.created( uri ).body( new CarroDetalhadoDto( carro ) );
     }
 
-    @DeleteMapping
-    public void delete() {
+    @DeleteMapping("{placa}")
+    @Transactional
+    public ResponseEntity delete(@PathVariable String placa) {
+        Optional<Carro> carroOpcional = carroRepository.findById(placa);
+        if (!carroOpcional.isPresent())
+            return ResponseEntity.notFound().build();
 
+        carroRepository.delete( carroOpcional.get() );
+        return ResponseEntity.ok(new ObjetoExcluidoDto("Carro de placa " + placa + " excluído com sucesso"));
     }
 
     @GetMapping("{id}")
