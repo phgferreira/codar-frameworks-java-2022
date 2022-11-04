@@ -18,6 +18,16 @@ public class ContaCorrente {
     @JoinColumn(name = "vendedor_key")
     private Vendedor vendedor;
 
+    public ContaCorrente() {
+    }
+
+    public ContaCorrente(String banco, Integer agencia, Integer numero, Vendedor vendedor) {
+        this.banco = banco;
+        this.agencia = agencia;
+        this.contaCorrente = numero;
+        this.vendedor = vendedor;
+    }
+
     public Integer getContaCorrenteKey() {
         return contaCorrenteKey;
     }

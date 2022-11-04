@@ -19,6 +19,15 @@ public class Vendedor {
     @OneToOne(mappedBy = "vendedor")
     private ContaCorrente contaCorrente;
 
+    public Vendedor() {
+    }
+
+    public Vendedor(String nome, BigInteger cpf, LocalDate dataAdmissao) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.dataAdmissao = dataAdmissao;
+    }
+
     public Integer getVendedorKey() {
         return vendedorKey;
     }
