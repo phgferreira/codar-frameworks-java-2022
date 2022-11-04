@@ -14,6 +14,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -72,7 +74,11 @@ public class CarroController {
     }
 
     @GetMapping
-    public void listAll() {
+    public List<CarroDetalhadoDto> listAll() {
+        List<Carro> carros = carroRepository.findAll();
+        List<CarroDetalhadoDto> listaDto = new ArrayList<>();
 
+        carros.forEach(carro -> listaDto.add( new CarroDetalhadoDto(carro) ));
+        return listaDto;
     }
 }
