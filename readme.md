@@ -5,8 +5,8 @@
 ## Etapas
 - [ ] Construção das entidades;
 - [ ] Cliente aluga carro:
-  - [ ] Recebe os dados;
-  - [ ] Gera e guarda aluguel;
+  - [x] Recebe os dados;
+  - [x] Gera e guarda aluguel;
   - [ ] Gera e guarda comissão.
 - [ ] Relatórios:
   - [ ] Aluguéis;
