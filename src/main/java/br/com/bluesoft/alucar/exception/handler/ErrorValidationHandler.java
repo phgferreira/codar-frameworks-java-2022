@@ -1,5 +1,6 @@
-package br.com.bluesoft.alucar.validation;
+package br.com.bluesoft.alucar.exception.handler;
 
+import br.com.bluesoft.alucar.dto.ErrorFormDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;

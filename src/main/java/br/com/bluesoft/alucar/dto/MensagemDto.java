@@ -1,4 +1,4 @@
-package br.com.bluesoft.alucar.controller.dto;
+package br.com.bluesoft.alucar.dto;
 
 public class MensagemDto {
 

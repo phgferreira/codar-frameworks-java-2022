@@ -1,4 +1,4 @@
-package br.com.bluesoft.alucar.validation;
+package br.com.bluesoft.alucar.dto;
 
 public class ErrorFormDto {
 

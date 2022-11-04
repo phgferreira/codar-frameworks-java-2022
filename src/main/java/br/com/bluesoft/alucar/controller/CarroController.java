@@ -1,9 +1,9 @@
 package br.com.bluesoft.alucar.controller;
 
-import br.com.bluesoft.alucar.controller.dto.CarroDetalhadoDto;
-import br.com.bluesoft.alucar.controller.dto.CarroInsertFormDto;
-import br.com.bluesoft.alucar.controller.dto.CarroUpdateFormDto;
-import br.com.bluesoft.alucar.controller.dto.MensagemDto;
+import br.com.bluesoft.alucar.dto.CarroDetalhadoDto;
+import br.com.bluesoft.alucar.dto.CarroInsertFormDto;
+import br.com.bluesoft.alucar.dto.CarroUpdateFormDto;
+import br.com.bluesoft.alucar.dto.MensagemDto;
 import br.com.bluesoft.alucar.model.Carro;
 import br.com.bluesoft.alucar.repository.CarroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
@@ -42,13 +43,8 @@ public class CarroController {
     @PutMapping("{placa}")
     @Transactional
     public ResponseEntity pudate(@PathVariable String placa, @RequestBody @Valid CarroUpdateFormDto carroUpdateFormDto, UriComponentsBuilder uriBuilder) {
-        Optional<Carro> carroOpcional = carroRepository.findById(placa);
-        if (!carroOpcional.isPresent())
-            return ResponseEntity.notFound().build();
-
-        Carro carro = carroOpcional.get();
+        Carro carro = carroRepository.getReferenceById(placa);
         carroUpdateFormDto.update( carro );
-
         URI uri = uriBuilder.path("/carro/{placa}").buildAndExpand( carro.getPlaca() ).toUri();
         return ResponseEntity.created( uri ).body( new CarroDetalhadoDto( carro ) );
     }
@@ -56,21 +52,15 @@ public class CarroController {
     @DeleteMapping("{placa}")
     @Transactional
     public ResponseEntity delete(@PathVariable String placa) {
-        Optional<Carro> carroOpcional = carroRepository.findById(placa);
-        if (!carroOpcional.isPresent())
-            return ResponseEntity.notFound().build();
-
-        carroRepository.delete( carroOpcional.get() );
+        Carro carro = carroRepository.getReferenceById(placa);
+        carroRepository.delete( carro );
         return ResponseEntity.ok(new MensagemDto("Carro de placa " + placa + " excluído com sucesso"));
     }
 
     @GetMapping("{placa}")
     public ResponseEntity findById(@PathVariable String placa) {
-        Optional<Carro> carroOpcional = carroRepository.findById(placa);
-        if (!carroOpcional.isPresent())
-            return ResponseEntity.notFound().build();
-
-        return ResponseEntity.ok( new CarroDetalhadoDto( carroOpcional.get() ) );
+        Carro carro = carroRepository.getReferenceById(placa);
+        return ResponseEntity.ok( new CarroDetalhadoDto( carro ) );
     }
 
     @GetMapping

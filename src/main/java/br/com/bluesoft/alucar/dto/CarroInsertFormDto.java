@@ -1,13 +1,18 @@
-package br.com.bluesoft.alucar.controller.dto;
+package br.com.bluesoft.alucar.dto;
 
 import br.com.bluesoft.alucar.model.Carro;
-import br.com.bluesoft.alucar.repository.CarroRepository;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 
-public class CarroUpdateFormDto {
+public class CarroInsertFormDto {
+
+    @NotBlank
+    @Pattern(regexp = "^[a-zA-Z]{3}\\-\\d{4}$")
+    private String placa;
+
     @NotBlank
     private String marca;
 
@@ -26,24 +31,38 @@ public class CarroUpdateFormDto {
     @NotNull
     private BigDecimal diaria;
 
-    public void update(Carro carro) {
-        carro.setMarca( this.marca );
-        carro.setModelo( this.modelo );
-        carro.setCor( this.cor );
-        carro.setAno( this.ano );
-        carro.setDiaria( this.diaria );
+    public Carro convertToCarro() {
+        Carro carro = new Carro(
+                this.placa,
+                this.marca,
+                this.modelo,
+                this.cor,
+                this.ano,
+                this.quilometragem,
+                this.diaria
+        );
+        return carro;
     }
 
     @Override
     public String toString() {
-        return "CarroUpdateForm{" +
-                "marca='" + marca + '\'' +
+        return "CarroFormDto{" +
+                "placa='" + placa + '\'' +
+                ", marca='" + marca + '\'' +
                 ", modelo='" + modelo + '\'' +
                 ", cor='" + cor + '\'' +
                 ", ano=" + ano +
                 ", quilometragem=" + quilometragem +
                 ", diaria=" + diaria +
                 '}';
+    }
+
+    public String getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
     }
 
     public String getMarca() {

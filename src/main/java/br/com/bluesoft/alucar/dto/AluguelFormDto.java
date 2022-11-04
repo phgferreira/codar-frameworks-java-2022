@@ -1,4 +1,4 @@
-package br.com.bluesoft.alucar.controller.dto;
+package br.com.bluesoft.alucar.dto;
 
 import br.com.bluesoft.alucar.model.Aluguel;
 import br.com.bluesoft.alucar.model.Carro;

@@ -1,7 +1,7 @@
 package br.com.bluesoft.alucar.controller;
 
-import br.com.bluesoft.alucar.controller.dto.AluguelDetalhadoDto;
-import br.com.bluesoft.alucar.controller.dto.AluguelFormDto;
+import br.com.bluesoft.alucar.dto.AluguelDetalhadoDto;
+import br.com.bluesoft.alucar.dto.AluguelFormDto;
 import br.com.bluesoft.alucar.model.Aluguel;
 import br.com.bluesoft.alucar.repository.AluguelRepository;
 import br.com.bluesoft.alucar.repository.CarroRepository;
