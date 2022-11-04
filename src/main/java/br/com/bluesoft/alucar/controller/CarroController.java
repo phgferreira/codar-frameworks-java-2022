@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 
@@ -21,6 +22,7 @@ public class CarroController {
     private CarroRepository carroRepository;
 
     @PostMapping
+    @Transactional
     public ResponseEntity insert( @RequestBody @Valid CarroFormDto carroFormDto, UriComponentsBuilder uriBuilder) {
         Carro carro = carroFormDto.convertToCarro();
         carroRepository.save(carro);
