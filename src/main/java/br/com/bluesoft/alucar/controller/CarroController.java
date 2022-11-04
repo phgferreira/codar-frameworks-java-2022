@@ -35,7 +35,7 @@ public class CarroController {
         Carro carro = carroInsertFormDto.convertToCarro();
         carroRepository.save(carro);
 
-        URI uri = uriBuilder.path("/carro/{id}").buildAndExpand(carro.getPlaca()).toUri();
+        URI uri = uriBuilder.path("/carro/{placa}").buildAndExpand(carro.getPlaca()).toUri();
         return ResponseEntity.created( uri ).body( new CarroDetalhadoDto( carro ) );
     }
 
@@ -49,7 +49,7 @@ public class CarroController {
         Carro carro = carroOpcional.get();
         carroUpdateFormDto.update( carro );
 
-        URI uri = uriBuilder.path("/carro/{id}").buildAndExpand( carro.getPlaca() ).toUri();
+        URI uri = uriBuilder.path("/carro/{placa}").buildAndExpand( carro.getPlaca() ).toUri();
         return ResponseEntity.created( uri ).body( new CarroDetalhadoDto( carro ) );
     }
 
