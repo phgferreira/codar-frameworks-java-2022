@@ -1,45 +1,39 @@
-package br.com.bluesoft.alucar.model;
+package br.com.bluesoft.alucar.controller.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import br.com.bluesoft.alucar.model.Carro;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 
-@Entity
-public class Carro {
+public class CarroFormDto {
 
-    @Id
+    @NotBlank
+    @Pattern(regexp = "^[a-zA-Z]{3}\\-\\d{4}$")
     private String placa;
 
+    @NotBlank
     private String marca;
 
+    @NotBlank
     private String modelo;
 
+    @NotBlank
     private String cor;
 
+    @NotNull
     private Integer ano;
 
+    @NotNull
     private Integer quilometragem;
 
+    @NotNull
     private BigDecimal diaria;
-
-    public Carro() {
-    }
-
-    public Carro(String placa, String marca, String modelo, String cor, Integer ano, Integer quilometragem, BigDecimal diaria) {
-        this.placa = placa;
-        this.marca = marca;
-        this.modelo = modelo;
-        this.cor = cor;
-        this.ano = ano;
-        this.quilometragem = quilometragem;
-        this.diaria = diaria;
-    }
 
     @Override
     public String toString() {
-        return "Carro{" +
+        return "CarroFormDto{" +
                 "placa='" + placa + '\'' +
                 ", marca='" + marca + '\'' +
                 ", modelo='" + modelo + '\'' +
@@ -104,5 +98,18 @@ public class Carro {
 
     public void setDiaria(BigDecimal diaria) {
         this.diaria = diaria;
+    }
+
+    public Carro convertToCarro() {
+        Carro carro = new Carro(
+                this.placa,
+                this.marca,
+                this.modelo,
+                this.cor,
+                this.ano,
+                this.quilometragem,
+                this.diaria
+        );
+        return carro;
     }
 }
