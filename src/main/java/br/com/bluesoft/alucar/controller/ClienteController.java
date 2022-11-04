@@ -44,16 +44,16 @@ public class ClienteController {
         URI uri = uriBuilder.path("/endereco/{id}").buildAndExpand(cliente.getClienteKey()).toUri();
         return ResponseEntity.created( uri ).body( new ClienteDetalhadoDto( cliente ) );
     }
-//
-//    @PutMapping("{id}")
-//    @Transactional
-//    public ResponseEntity update(@PathVariable Integer id, @RequestBody @Valid ClienteUpdateFormDto clienteUpdateFormDto, UriComponentsBuilder uriBuilder) {
-//        Cliente cliente = clienteRepository.getReferenceById(id);
-//        clienteUpdateFormDto.update( cliente );
-//        URI uri = uriBuilder.path("/cliente/{id}").buildAndExpand( cliente.getClienteKey() ).toUri();
-//        return ResponseEntity.created( uri ).body( new ClienteDetalhadoDto( cliente ) );
-//    }
-//
+
+    @PutMapping("{id}")
+    @Transactional
+    public ResponseEntity update(@PathVariable Integer id, @RequestBody @Valid ClienteUpdateFormDto clienteUpdateFormDto, UriComponentsBuilder uriBuilder) {
+        Cliente cliente = clienteRepository.getReferenceById(id);
+        clienteUpdateFormDto.update( cliente );
+        URI uri = uriBuilder.path("/cliente/{id}").buildAndExpand( cliente.getClienteKey() ).toUri();
+        return ResponseEntity.created( uri ).body( new ClienteDetalhadoDto( cliente ) );
+    }
+
     @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity delete(@PathVariable Integer id) {
