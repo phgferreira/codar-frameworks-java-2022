@@ -24,6 +24,9 @@ public class Endereco {
     @JoinColumn(name = "cliente_key")
     private Cliente cliente;
 
+    public Endereco() {
+    }
+
     public Endereco(String rua, Integer numero, String complemento, String bairro, String cidade, String estado, Cliente cliente) {
         this.rua = rua;
         this.numero = numero;

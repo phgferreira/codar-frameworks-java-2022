@@ -62,18 +62,18 @@ public class ClienteController {
 //        return ResponseEntity.ok(new MensagemDto("Cliente " + cliente.getNome() + " excluído com sucesso"));
 //    }
 //
-//    @GetMapping("{id}")
-//    public ResponseEntity findById(@PathVariable Integer id) {
-//        Cliente Cliente = clienteRepository.getReferenceById(id);
-//        return ResponseEntity.ok( new ClienteDetalhadoDto( cliente ) );
-//    }
-//
-//    @GetMapping
-//    public List<ClienteDetalhadoDto> listAll() {
-//        List<Cliente> clientes = clienteRepository.findAll();
-//        List<ClienteDetalhadoDto> listaDto = new ArrayList<>();
-//
-//        clientes.forEach(cliente -> listaDto.add( new ClienteDetalhadoDto(cliente) ));
-//        return listaDto;
-//    }
+    @GetMapping("{id}")
+    public ResponseEntity findById(@PathVariable Integer id) {
+        Cliente cliente = clienteRepository.getReferenceById(id);
+        return ResponseEntity.ok( new ClienteDetalhadoDto( cliente ) );
+    }
+
+    @GetMapping
+    public List<ClienteDetalhadoDto> listAll() {
+        List<Cliente> clientes = clienteRepository.findAll();
+        List<ClienteDetalhadoDto> listaDto = new ArrayList<>();
+
+        clientes.forEach(cliente -> listaDto.add( new ClienteDetalhadoDto(cliente) ));
+        return listaDto;
+    }
 }
