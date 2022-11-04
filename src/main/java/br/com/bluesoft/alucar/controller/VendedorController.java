@@ -18,7 +18,6 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("vendedor")
@@ -55,17 +54,14 @@ public class VendedorController {
         return ResponseEntity.created( uri ).body( new VendedorDetalhadoDto( vendedor ) );
     }
 
-//    @DeleteMapping("{id}")
-//    @Transactional
-//    public ResponseEntity delete(@PathVariable Integer id) {
-//        Optional<Vendedor> vendedorOpcional = vendedorRepository.findById(id);
-//        if (!vendedorOpcional.isPresent())
-//            return ResponseEntity.notFound().build();
-//
-//        vendedorRepository.delete( vendedorOpcional.get() );
-//        return ResponseEntity.ok(new MensagemDto("Vendedor " + vendedorOpcional.get().getNome() + " excluído com sucesso"));
-//    }
-//
+    @DeleteMapping("{id}")
+    @Transactional
+    public ResponseEntity delete(@PathVariable Integer id) {
+        Vendedor vendedor = vendedorRepository.getReferenceById(id);
+        vendedorRepository.delete(vendedor);
+        return ResponseEntity.ok(new MensagemDto("Vendedor " + vendedor.getNome() + " excluído com sucesso"));
+    }
+
     @GetMapping("{id}")
     public ResponseEntity findById(@PathVariable Integer id) {
         Vendedor vendedor = vendedorRepository.getReferenceById(id);

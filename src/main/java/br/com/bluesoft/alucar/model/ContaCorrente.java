@@ -14,7 +14,7 @@ public class ContaCorrente {
 
     private Integer contaCorrente;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "vendedor_key")
     private Vendedor vendedor;
 
