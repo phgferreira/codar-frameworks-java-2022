@@ -1,8 +1,8 @@
 package br.com.bluesoft.alucar.controller;
 
-import br.com.bluesoft.alucar.controller.dto.AluguelDetalhadoDto;
 import br.com.bluesoft.alucar.controller.dto.CarroDetalhadoDto;
-import br.com.bluesoft.alucar.controller.dto.CarroFormDto;
+import br.com.bluesoft.alucar.controller.dto.CarroInsertFormDto;
+import br.com.bluesoft.alucar.controller.dto.CarroUpdateFormDto;
 import br.com.bluesoft.alucar.model.Carro;
 import br.com.bluesoft.alucar.repository.CarroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("carro")
@@ -23,17 +24,25 @@ public class CarroController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity insert( @RequestBody @Valid CarroFormDto carroFormDto, UriComponentsBuilder uriBuilder) {
-        Carro carro = carroFormDto.convertToCarro();
+    public ResponseEntity insert(@RequestBody @Valid CarroInsertFormDto carroInsertFormDto, UriComponentsBuilder uriBuilder) {
+        Carro carro = carroInsertFormDto.convertToCarro();
         carroRepository.save(carro);
 
         URI uri = uriBuilder.path("/carro/{id}").buildAndExpand(carro.getPlaca()).toUri();
         return ResponseEntity.created( uri ).body( new CarroDetalhadoDto( carro ) );
     }
 
-    @PutMapping
-    public void pudate() {
+    @PutMapping("{placa}")
+    @Transactional
+    public ResponseEntity pudate(@PathVariable String placa, @RequestBody @Valid CarroUpdateFormDto carroUpdateFormDto, UriComponentsBuilder uriBuilder) {
+        Optional<Carro> carroOpcional = carroRepository.findById(placa);
+        if (!carroOpcional.isPresent())
+            return ResponseEntity.notFound().build();
+        Carro carro = carroOpcional.get();
+        carroUpdateFormDto.update( carro );
 
+        URI uri = uriBuilder.path("/carro/{id}").buildAndExpand( carro.getPlaca() ).toUri();
+        return ResponseEntity.created( uri ).body( new CarroDetalhadoDto( carro ) );
     }
 
     @DeleteMapping

@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 
-public class CarroFormDto {
+public class CarroInsertFormDto {
 
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z]{3}\\-\\d{4}$")
@@ -30,6 +30,19 @@ public class CarroFormDto {
 
     @NotNull
     private BigDecimal diaria;
+
+    public Carro convertToCarro() {
+        Carro carro = new Carro(
+                this.placa,
+                this.marca,
+                this.modelo,
+                this.cor,
+                this.ano,
+                this.quilometragem,
+                this.diaria
+        );
+        return carro;
+    }
 
     @Override
     public String toString() {
@@ -98,18 +111,5 @@ public class CarroFormDto {
 
     public void setDiaria(BigDecimal diaria) {
         this.diaria = diaria;
-    }
-
-    public Carro convertToCarro() {
-        Carro carro = new Carro(
-                this.placa,
-                this.marca,
-                this.modelo,
-                this.cor,
-                this.ano,
-                this.quilometragem,
-                this.diaria
-        );
-        return carro;
     }
 }
