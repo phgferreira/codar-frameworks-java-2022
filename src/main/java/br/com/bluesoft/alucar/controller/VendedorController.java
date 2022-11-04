@@ -15,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("vendedor")
@@ -67,14 +68,11 @@ public class VendedorController {
 //        return ResponseEntity.ok(new MensagemDto("Vendedor " + vendedorOpcional.get().getNome() + " excluído com sucesso"));
 //    }
 //
-//    @GetMapping("{id}")
-//    public ResponseEntity findById(@PathVariable Integer id) {
-//        Optional<Vendedor> vendedorOpcional = vendedorRepository.findById(id);
-//        if (!vendedorOpcional.isPresent())
-//            return ResponseEntity.notFound().build();
-//
-//        return ResponseEntity.ok( new VendedorDetalhadoDto( vendedorOpcional.get() ) );
-//    }
+    @GetMapping("{id}")
+    public ResponseEntity findById(@PathVariable Integer id) {
+        Vendedor vendedor = vendedorRepository.getReferenceById(id);
+        return ResponseEntity.ok( new VendedorDetalhadoDto( vendedor ) );
+    }
 //
 //    @GetMapping
 //    public List<VendedorDetalhadoDto> listAll() {
