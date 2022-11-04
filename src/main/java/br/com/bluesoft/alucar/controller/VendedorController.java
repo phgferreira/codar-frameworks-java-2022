@@ -15,6 +15,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -73,13 +75,13 @@ public class VendedorController {
         Vendedor vendedor = vendedorRepository.getReferenceById(id);
         return ResponseEntity.ok( new VendedorDetalhadoDto( vendedor ) );
     }
-//
-//    @GetMapping
-//    public List<VendedorDetalhadoDto> listAll() {
-//        List<Vendedor> vendedores = vendedorRepository.findAll();
-//        List<VendedorDetalhadoDto> listaDto = new ArrayList<>();
-//
-//        vendedores.forEach(vendedor -> listaDto.add( new VendedorDetalhadoDto(vendedor) ));
-//        return listaDto;
-//    }
+
+    @GetMapping
+    public List<VendedorDetalhadoDto> listAll() {
+        List<Vendedor> vendedores = vendedorRepository.findAll();
+        List<VendedorDetalhadoDto> listaDto = new ArrayList<>();
+
+        vendedores.forEach(vendedor -> listaDto.add( new VendedorDetalhadoDto(vendedor) ));
+        return listaDto;
+    }
 }
