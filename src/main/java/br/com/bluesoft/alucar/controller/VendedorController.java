@@ -3,6 +3,7 @@ package br.com.bluesoft.alucar.controller;
 import br.com.bluesoft.alucar.dto.MensagemDto;
 import br.com.bluesoft.alucar.dto.VendedorDetalhadoDto;
 import br.com.bluesoft.alucar.dto.VendedorInsertFormDto;
+import br.com.bluesoft.alucar.dto.VendedorUpdateFormDto;
 import br.com.bluesoft.alucar.model.ContaCorrente;
 import br.com.bluesoft.alucar.model.Vendedor;
 import br.com.bluesoft.alucar.repository.ContaCorrenteRepository;
@@ -44,21 +45,16 @@ public class VendedorController {
         URI uri = uriBuilder.path("/vendedor/{id}").buildAndExpand(vendedor.getVendedorKey()).toUri();
         return ResponseEntity.created( uri ).body( new VendedorDetalhadoDto( vendedor ) );
     }
-//
-//    @PutMapping("{id}")
-//    @Transactional
-//    public ResponseEntity pudate(@PathVariable Integer id, @RequestBody @Valid VendedorUpdateFormDto vendedorUpdateFormDto, UriComponentsBuilder uriBuilder) {
-//        Optional<Vendedor> vendedorOpcional = vendedorRepository.findById(id);
-//        if (!vendedorOpcional.isPresent())
-//            return ResponseEntity.notFound().build();
-//
-//        Vendedor vendedor = vendedorOpcional.get();
-//        vendedorUpdateFormDto.update( vendedor );
-//
-//        URI uri = uriBuilder.path("/vendedor/{id}").buildAndExpand( vendedor.getVendedorKey() ).toUri();
-//        return ResponseEntity.created( uri ).body( new VendedorDetalhadoDto( vendedor ) );
-//    }
-//
+
+    @PutMapping("{id}")
+    @Transactional
+    public ResponseEntity update(@PathVariable Integer id, @RequestBody @Valid VendedorUpdateFormDto vendedorUpdateFormDto, UriComponentsBuilder uriBuilder) {
+        Vendedor vendedor = vendedorRepository.getReferenceById(id);
+        vendedorUpdateFormDto.update( vendedor );
+        URI uri = uriBuilder.path("/vendedor/{id}").buildAndExpand( vendedor.getVendedorKey() ).toUri();
+        return ResponseEntity.created( uri ).body( new VendedorDetalhadoDto( vendedor ) );
+    }
+
 //    @DeleteMapping("{id}")
 //    @Transactional
 //    public ResponseEntity delete(@PathVariable Integer id) {

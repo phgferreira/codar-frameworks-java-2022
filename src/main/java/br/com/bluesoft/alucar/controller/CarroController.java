@@ -42,7 +42,7 @@ public class CarroController {
 
     @PutMapping("{placa}")
     @Transactional
-    public ResponseEntity pudate(@PathVariable String placa, @RequestBody @Valid CarroUpdateFormDto carroUpdateFormDto, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity update(@PathVariable String placa, @RequestBody @Valid CarroUpdateFormDto carroUpdateFormDto, UriComponentsBuilder uriBuilder) {
         Carro carro = carroRepository.getReferenceById(placa);
         carroUpdateFormDto.update( carro );
         URI uri = uriBuilder.path("/carro/{placa}").buildAndExpand( carro.getPlaca() ).toUri();
