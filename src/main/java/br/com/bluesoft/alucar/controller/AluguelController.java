@@ -9,14 +9,12 @@ import br.com.bluesoft.alucar.repository.ClienteRepository;
 import br.com.bluesoft.alucar.repository.VendedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
 import java.net.URI;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("aluguel")
@@ -43,5 +41,15 @@ public class AluguelController {
 
         URI uri = uriBuilder.path("/aluguel/{id}").buildAndExpand(aluguel.getAluguelKey()).toUri();
         return ResponseEntity.created( uri ).body( new AluguelDetalhadoDto( aluguel ) );
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity detail(@PathVariable("id") Integer aluguelKey) {
+        Optional<Aluguel> aluguel = aluguelRepository.findById(aluguelKey);
+        if (!aluguel.isPresent())
+            return ResponseEntity.notFound().build();
+
+        AluguelDetalhadoDto dto = new AluguelDetalhadoDto( aluguel.get() );
+        return ResponseEntity.ok( dto );
     }
 }
