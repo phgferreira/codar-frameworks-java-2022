@@ -29,6 +29,6 @@ public interface ComissaoRepository extends JpaRepository<Comissao, Integer> {
             "inner join ContaCorrente cc on cc.vendedor.vendedorKey = v.vendedorKey " +
             "where v.vendedorKey = :vendedorKey " +
             "group by v.nome, v.cpf, cc.banco, cc.agencia, cc.contaCorrente")
-    List<ComissaoProjecao> getComissaoOfOneVendedor(Integer vendedorKey);
+    ComissaoProjecao getComissaoOfOneVendedor(Integer vendedorKey);
 
 }

@@ -73,8 +73,7 @@ class ComissaoRepositoryTest {
 
     @Test @DisplayName("Deve devolver a comissão de um vendedor específico")
     void getComissaoOfOneVendedorTest() {
-        List<ComissaoProjecao> projecoes = comissaoRepository.getComissaoOfOneVendedor( this.vendedorKey );
-        ComissaoProjecao projecao = projecoes.get(0);
+        ComissaoProjecao projecao = comissaoRepository.getComissaoOfOneVendedor( this.vendedorKey );
 
         assertEquals("Rodrigo Limeira Cachias", projecao.getNome());
         assertEquals(new BigInteger("34378748819"), projecao.getCpf());
