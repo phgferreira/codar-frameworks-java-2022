@@ -2,7 +2,9 @@ package br.com.bluesoft.alucar.controller;
 
 import br.com.bluesoft.alucar.dto.AluguelDetalhadoDto;
 import br.com.bluesoft.alucar.dto.AluguelFormDto;
+import br.com.bluesoft.alucar.dto.CarroDetalhadoDto;
 import br.com.bluesoft.alucar.model.Aluguel;
+import br.com.bluesoft.alucar.model.Carro;
 import br.com.bluesoft.alucar.repository.AluguelRepository;
 import br.com.bluesoft.alucar.repository.CarroRepository;
 import br.com.bluesoft.alucar.repository.ClienteRepository;
@@ -15,6 +17,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -44,12 +48,21 @@ public class AluguelController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity detail(@PathVariable("id") Integer aluguelKey) {
+    public ResponseEntity findById(@PathVariable("id") Integer aluguelKey) {
         Optional<Aluguel> aluguel = aluguelRepository.findById(aluguelKey);
         if (!aluguel.isPresent())
             return ResponseEntity.notFound().build();
 
         AluguelDetalhadoDto dto = new AluguelDetalhadoDto( aluguel.get() );
         return ResponseEntity.ok( dto );
+    }
+
+    @GetMapping
+    public List<AluguelDetalhadoDto> listAll() {
+        List<Aluguel> alugueis = aluguelRepository.findAll();
+        List<AluguelDetalhadoDto> listaDto = new ArrayList<>();
+
+        alugueis.forEach(aluguel -> listaDto.add( new AluguelDetalhadoDto(aluguel) ));
+        return listaDto;
     }
 }
