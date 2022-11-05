@@ -29,7 +29,8 @@ public class ComissaoController {
     }
 
     @GetMapping("relatorio/vendedor/{id}")
-    public List<ComissaoRelatorioDto> listAllByVendedor(@PathVariable Integer id) {
-        return null;
+    public ComissaoRelatorioDto listAllByVendedor(@PathVariable Integer id) {
+        ComissaoProjecao projecao = comissaoRepository.getComissaoOfOneVendedor(id);
+        return new ComissaoRelatorioDto(projecao);
     }
 }
