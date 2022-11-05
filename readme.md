@@ -1,6 +1,6 @@
 # Frameworks
 
->Status: Em Desenvolvimento
+>Status: Concluído
 
 ## Etapas
 - [x] Construção das entidades:
