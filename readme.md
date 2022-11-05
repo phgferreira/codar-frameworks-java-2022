@@ -14,9 +14,9 @@
   - [x] Recebe os dados;
   - [x] Gera e guarda aluguel;
   - [x] Gera e guarda comissão.
-- [ ] Relatórios:
+- [x] Relatórios:
   - [x] Aluguéis;
-  - [ ] Comissões
+  - [x] Comissões
 
 ## Bem vindo ao desafio de frameworks do movimento codar.
 
