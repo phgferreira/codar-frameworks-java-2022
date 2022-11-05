@@ -30,6 +30,17 @@ public class Vendedor {
         this.dataAdmissao = dataAdmissao;
     }
 
+    @Override
+    public String toString() {
+        return "Vendedor{" +
+                "vendedorKey=" + vendedorKey +
+                ", nome='" + nome + '\'' +
+                ", cpf=" + cpf +
+                ", dataAdmissao=" + dataAdmissao +
+                ", contaCorrente=" + contaCorrente +
+                '}';
+    }
+
     public Integer getVendedorKey() {
         return vendedorKey;
     }

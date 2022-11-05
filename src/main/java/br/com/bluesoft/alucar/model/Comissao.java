@@ -32,6 +32,17 @@ public class Comissao {
         this.aluguel = aluguel;
     }
 
+    @Override
+    public String toString() {
+        return "Comissao{" +
+                "comissaoKey=" + comissaoKey +
+                ", dataCriacao=" + dataCriacao +
+                ", valor=" + valor +
+                ", vendedor=" + vendedor +
+                ", aluguel=" + aluguel +
+                '}';
+    }
+
     public Integer getComissaoKey() {
         return comissaoKey;
     }

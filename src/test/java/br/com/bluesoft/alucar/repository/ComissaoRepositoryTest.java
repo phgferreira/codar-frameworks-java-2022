@@ -2,6 +2,7 @@ package br.com.bluesoft.alucar.repository;
 
 import br.com.bluesoft.alucar.comissao.CalculadoraComissao;
 import br.com.bluesoft.alucar.model.*;
+import br.com.bluesoft.alucar.model.projecao.ComissaoProjecao;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -57,6 +58,16 @@ class ComissaoRepositoryTest {
     void listAllTest() {
         List<Comissao> comissoes = comissaoRepository.findAll();
         assertTrue( comissoes.size() > 0 );
+    }
+
+    @Test @DisplayName("Deve listar as comissões agrupadas por vendedor")
+    void listAllGroupedByVendedorTest() {
+        List<ComissaoProjecao> projecoes = comissaoRepository.listAllGroupedByAllVendedor();
+        ComissaoProjecao projecao = projecoes.get(0);
+
+        assertEquals("Rodrigo Limeira Cachias", projecao.getNome());
+        assertEquals(new BigInteger("34378748819"), projecao.getCpf());
+        assertEquals(new BigDecimal("19.1"), projecao.getValor());
     }
 
 }

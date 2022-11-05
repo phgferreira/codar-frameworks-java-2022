@@ -13,7 +13,7 @@
 - [x] Cliente aluga carro:
   - [x] Recebe os dados;
   - [x] Gera e guarda aluguel;
-  - [ ] Gera e guarda comissão.
+  - [x] Gera e guarda comissão.
 - [ ] Relatórios:
   - [x] Aluguéis;
   - [ ] Comissões
