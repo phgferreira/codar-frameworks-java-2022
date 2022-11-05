@@ -5,7 +5,7 @@
 ## Etapas
 - [x] Construção das entidades:
   - [x] Aluguel;
-  - [ ] ~~Comissão.~~
+  - [x] Comissão.
 - [x] Crud das entidades:
   - [x] Carro;
   - [x] Vendedor;
@@ -13,9 +13,9 @@
 - [x] Cliente aluga carro:
   - [x] Recebe os dados;
   - [x] Gera e guarda aluguel;
-  - [x] Gera ~~e guarda~~ comissão.
+  - [ ] Gera e guarda comissão.
 - [ ] Relatórios:
-  - [ ] Aluguéis;
+  - [x] Aluguéis;
   - [ ] Comissões
 
 ## Bem vindo ao desafio de frameworks do movimento codar.
