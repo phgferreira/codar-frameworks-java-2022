@@ -18,7 +18,7 @@ public class ComissaoVendedorCincoAnos extends Comissao {
 
     @Override
     public Boolean aplicavel(Aluguel aluguel) {
-        return Period.between( aluguel.getVendedor().getDataAdmissao(), LocalDate.now())
+        return Period.between( aluguel.getVendedor().getDataAdmissao(), aluguel.getDataCriacao())
                 .getYears() > 5;
     }
 }
