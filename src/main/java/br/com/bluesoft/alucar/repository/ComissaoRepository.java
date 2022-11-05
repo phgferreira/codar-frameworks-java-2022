@@ -1,6 +1,7 @@
 package br.com.bluesoft.alucar.repository;
 
 import br.com.bluesoft.alucar.model.Comissao;
+import br.com.bluesoft.alucar.model.Vendedor;
 import br.com.bluesoft.alucar.model.projecao.ComissaoProjecao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,5 +19,16 @@ public interface ComissaoRepository extends JpaRepository<Comissao, Integer> {
             "order by 1",
         nativeQuery = true)
     List<ComissaoProjecao> listAllGroupedByAllVendedor();
+
+    @Query("" +
+            "select v.nome as nome, v.cpf as cpf, " +
+            "cc.banco as banco, cc.agencia as agencia, cc.contaCorrente as contaCorrente, " +
+            "sum(cm.valor) as valor " +
+            "from Comissao cm " +
+            "inner join cm.vendedor v " +
+            "inner join ContaCorrente cc on cc.vendedor.vendedorKey = v.vendedorKey " +
+            "where v.vendedorKey = :vendedorKey " +
+            "group by v.nome, v.cpf, cc.banco, cc.agencia, cc.contaCorrente")
+    List<ComissaoProjecao> getComissaoOfOneVendedor(Integer vendedorKey);
 
 }

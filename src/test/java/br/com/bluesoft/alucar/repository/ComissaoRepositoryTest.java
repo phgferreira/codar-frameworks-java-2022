@@ -34,21 +34,22 @@ class ComissaoRepositoryTest {
     @Autowired
     private AluguelRepository aluguelRepository;
 
+    private Integer vendedorKey;
+
     @BeforeEach
     void beforeEach() {
         Cliente cliente = clienteRepository.findByCpf( new BigInteger("39371890017") );
         Vendedor vendedor = vendedorRepository.findByCpf( new BigInteger("34378748819") );
+            this.vendedorKey = vendedor.getVendedorKey();
         Carro carro = carroRepository.findByPlaca("ABC-1234");
 
         LocalDate dataCriacao = LocalDate.parse("1901-01-01");
         Integer diasAlugado = 2;
         BigDecimal valorTotal = carro.getDiaria().multiply( new BigDecimal(diasAlugado) );
-
         Aluguel aluguel = new Aluguel(cliente, vendedor, carro, diasAlugado, valorTotal, dataCriacao);
         aluguelRepository.save(aluguel);
 
         BigDecimal valorComissao = new CalculadoraComissao().calcula(aluguel);
-
         Comissao comisao = new Comissao(LocalDate.now(), valorComissao, vendedor, aluguel);
         comissaoRepository.save(comisao);
     }
@@ -61,8 +62,18 @@ class ComissaoRepositoryTest {
     }
 
     @Test @DisplayName("Deve listar as comissões agrupadas por vendedor")
-    void listAllGroupedByVendedorTest() {
+    void listAllGroupedByAllVendedorTest() {
         List<ComissaoProjecao> projecoes = comissaoRepository.listAllGroupedByAllVendedor();
+        ComissaoProjecao projecao = projecoes.get(0);
+
+        assertEquals("Rodrigo Limeira Cachias", projecao.getNome());
+        assertEquals(new BigInteger("34378748819"), projecao.getCpf());
+        assertEquals(new BigDecimal("19.1"), projecao.getValor());
+    }
+
+    @Test @DisplayName("Deve devolver a comissão de um vendedor específico")
+    void getComissaoOfOneVendedorTest() {
+        List<ComissaoProjecao> projecoes = comissaoRepository.getComissaoOfOneVendedor( this.vendedorKey );
         ComissaoProjecao projecao = projecoes.get(0);
 
         assertEquals("Rodrigo Limeira Cachias", projecao.getNome());
