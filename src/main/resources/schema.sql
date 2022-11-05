@@ -57,3 +57,13 @@ create table aluguel (
     carro_placa varchar(8) not null,
         foreign key (carro_placa) references carro(placa)
 );
+
+create table comissao (
+    comissao_key INT PRIMARY KEY AUTO_INCREMENT,
+    data_criacao date not null,
+    valor float not null,
+    vendedor_key int not null,
+        foreign key (vendedor_key) references vendedor(vendedor_key),
+    aluguel_key int not null,
+        foreign key (aluguel_key) references aluguel(aluguel_key)
+);
