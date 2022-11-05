@@ -1,15 +1,14 @@
 package br.com.bluesoft.alucar.controller;
 
+import br.com.bluesoft.alucar.comissao.CalculadoraComissao;
 import br.com.bluesoft.alucar.dto.AluguelDetalhadoDto;
 import br.com.bluesoft.alucar.dto.AluguelFormDto;
 import br.com.bluesoft.alucar.dto.AluguelRelatorioDto;
 import br.com.bluesoft.alucar.dto.CarroDetalhadoDto;
 import br.com.bluesoft.alucar.model.Aluguel;
 import br.com.bluesoft.alucar.model.Carro;
-import br.com.bluesoft.alucar.repository.AluguelRepository;
-import br.com.bluesoft.alucar.repository.CarroRepository;
-import br.com.bluesoft.alucar.repository.ClienteRepository;
-import br.com.bluesoft.alucar.repository.VendedorRepository;
+import br.com.bluesoft.alucar.model.Comissao;
+import br.com.bluesoft.alucar.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -38,11 +39,18 @@ public class AluguelController {
     @Autowired
     private CarroRepository carroRepository;
 
+    @Autowired
+    private ComissaoRepository comissaoRepository;
+
     @PostMapping
     @Transactional
     public ResponseEntity<AluguelDetalhadoDto> insert(@RequestBody @Valid AluguelFormDto aluguelFormDto, UriComponentsBuilder uriBuilder) {
         Aluguel aluguel = aluguelFormDto.convertToAluguel(clienteRepository, vendedorRepository, carroRepository);
         aluguelRepository.save( aluguel );
+
+        BigDecimal valorComissao = new CalculadoraComissao().calcula(aluguel);
+        Comissao comissao = new Comissao(LocalDate.now(), valorComissao, aluguel.getVendedor(), aluguel);
+        comissaoRepository.save(comissao);
 
         URI uri = uriBuilder.path("/aluguel/{id}").buildAndExpand(aluguel.getAluguelKey()).toUri();
         return ResponseEntity.created( uri ).body( new AluguelDetalhadoDto( aluguel ) );
