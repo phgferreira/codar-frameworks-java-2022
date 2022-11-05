@@ -8,4 +8,8 @@ public interface ComissaoProjecao {
     String getNome();
     BigInteger getCpf();
     BigDecimal getValor();
+    String getBanco();
+    Integer getAgencia();
+    Integer getContaCorrente();
+
 }

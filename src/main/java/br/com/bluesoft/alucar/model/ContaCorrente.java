@@ -21,6 +21,12 @@ public class ContaCorrente {
     public ContaCorrente() {
     }
 
+    public ContaCorrente(String banco, Integer agencia, Integer contaCorrente) {
+        this.banco = banco;
+        this.agencia = agencia;
+        this.contaCorrente = contaCorrente;
+    }
+
     public ContaCorrente(String banco, Integer agencia, Integer numero, Vendedor vendedor) {
         this.banco = banco;
         this.agencia = agencia;

@@ -2,40 +2,41 @@ package br.com.bluesoft.alucar.dto;
 
 import br.com.bluesoft.alucar.model.ContaCorrente;
 import br.com.bluesoft.alucar.model.Vendedor;
+import br.com.bluesoft.alucar.model.projecao.ComissaoProjecao;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class ComissaoRelatorioDto {
 
-    private String vendedorNome;
+    private String vendedor;
 
-    private BigInteger vendedorCpf;
+    private BigInteger cpf;
 
-    private BigDecimal valorComissao;
+    private BigDecimal valor;
 
-    private ContaCorrente vendedorConta;
+    private ContaCorrenteDto conta;
 
-    public ComissaoRelatorioDto(Vendedor vendedor, BigDecimal valorComissao) {
-        this.vendedorNome = vendedor.getNome();
-        this.vendedorCpf = vendedor.getCpf();
-        this.vendedorConta = vendedor.getContaCorrente();
-        this.valorComissao = valorComissao;
+    public ComissaoRelatorioDto(ComissaoProjecao projecao) {
+        this.vendedor = projecao.getNome();
+        this.cpf = projecao.getCpf();
+        this.valor = projecao.getValor();
+        this.conta = new ContaCorrenteDto(projecao.getBanco(), projecao.getAgencia(), projecao.getContaCorrente());
     }
 
-    public String getVendedorNome() {
-        return vendedorNome;
+    public String getVendedor() {
+        return vendedor;
     }
 
-    public BigInteger getVendedorCpf() {
-        return vendedorCpf;
+    public BigInteger getCpf() {
+        return cpf;
     }
 
-    public BigDecimal getValorComissao() {
-        return valorComissao;
+    public BigDecimal getValor() {
+        return valor;
     }
 
-    public ContaCorrente getVendedorConta() {
-        return vendedorConta;
+    public ContaCorrenteDto getConta() {
+        return conta;
     }
 }
