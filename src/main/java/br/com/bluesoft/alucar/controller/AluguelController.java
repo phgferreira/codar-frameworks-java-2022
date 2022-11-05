@@ -2,6 +2,7 @@ package br.com.bluesoft.alucar.controller;
 
 import br.com.bluesoft.alucar.dto.AluguelDetalhadoDto;
 import br.com.bluesoft.alucar.dto.AluguelFormDto;
+import br.com.bluesoft.alucar.dto.AluguelRelatorioDto;
 import br.com.bluesoft.alucar.dto.CarroDetalhadoDto;
 import br.com.bluesoft.alucar.model.Aluguel;
 import br.com.bluesoft.alucar.model.Carro;
@@ -63,6 +64,15 @@ public class AluguelController {
         List<AluguelDetalhadoDto> listaDto = new ArrayList<>();
 
         alugueis.forEach(aluguel -> listaDto.add( new AluguelDetalhadoDto(aluguel) ));
+        return listaDto;
+    }
+
+    @GetMapping("relatorio")
+    public List<AluguelRelatorioDto> listRelatorio() {
+        List<Aluguel> alugueis = aluguelRepository.findAll();
+        List<AluguelRelatorioDto> listaDto = new ArrayList<>();
+
+        alugueis.forEach(aluguel -> listaDto.add( new AluguelRelatorioDto(aluguel) ));
         return listaDto;
     }
 }
